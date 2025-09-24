@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Весілля Maryna & Daniil</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin:0;
+  font-family:'Playfair Display',serif;
+  background:linear-gradient(180deg,#f9f5f0,#e4f0e0);
+  color:#333;
+}
+header {
+  text-align:center;
+  padding:50px 20px;
+  background:#f5f5e5;
+}
+header h1 {
+  font-family:'Great Vibes',cursive;
+  font-size:60px;
+  margin:0;
+  color:#3c5a3c;
+}
+header .date {
+  font-size:20px;
+  margin-top:8px;
+  color:#556b55;
+}
+.container{
+  max-width:900px;
+  margin:20px auto;
+  padding:0 15px;
+}
+.section {
+  background:#fdfbf5;
+  padding:30px;
+  margin-bottom:30px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+h2 {
+  font-family:'Great Vibes',cursive;
+  font-size:36px;
+  margin-top:0;
+  color:#3c5a3c;
+  text-align:center;
+}
+.hero-img {
+  width:100%;
+  max-width:600px;
+  border-radius:20px;
+  display:block;
+  margin:20px auto;
+  box-shadow:0 6px 16px rgba(0,0,0,0.15);
+}
+.btn {
+  display:inline-block;
+  padding:10px 16px;
+  background:#e4f0e0;
+  color:#3c5a3c;
+  text-decoration:none;
+  border-radius:8px;
+  margin-top:12px;
+}
+.dress-circles {
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+.circle {
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  font-weight:600;
+  text-align:center;
+}
+.lang{display:none}
+.lang.active{display:block}
+nav{margin:20px 0;text-align:center}
+nav button{margin:0 5px;padding:6px 12px;border:none;border-radius:8px;cursor:pointer;background:#dcd3b2;color:#3c5a3c;font-weight:600}
+nav button.active{background:#3c5a3c;color:#e4f0e0}
+
+/* Секція календаря */
+.calendar {
+  width:100%;
+  border-collapse:collapse;
+  font-family: Arial, sans-serif;
+  color:#2e3d2f;
+  margin-top:15px;
+}
+.calendar th, .calendar td {
+  border:1px solid #ddd;
+  padding:10px 0;
+  width:14.28%;
+  position:relative;
+}
+.wedding-day {
+  font-weight:bold;
+  color:#d44a73;
+}
+.wedding-day::before {
+  content: '❤️';
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  font-size:1.2em;
+  animation: heartbeat 1s infinite;
+}
+@keyframes heartbeat {
+  0%,100%{transform:translate(-50%,-50%) scale(1);}
+  25%{transform:translate(-50%,-50%) scale(1.3);}
+  50%{transform:translate(-50%,-50%) scale(1);}
+  75%{transform:translate(-50%,-50%) scale(1.3);}
+}
+
+/* Анкета кнопки */
+.question {
+  padding:15px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  background-color:#f5f0e1;
+}
+.options {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.question button {
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background-color:#8fae8c;
+  color:white;
+  cursor:pointer;
+  transition: background-color 0.2s;
+}
+button[data-group="q2"] {background-color:#8b5e3c;}
+button[data-group="q3"] {background-color:#2e3d2f;}
+button[data-group="q4"] {background-color:#d4a373;}
+.question button:hover {opacity:0.8;}
+.question button.active {box-shadow:0 0 0 3px #556b2f inset;}
+
+/* Блок історії */
+.story-step {
+  opacity:0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+  text-align:center;
+  margin-bottom:30px;
+}
+.story-step h3 {
+  font-family:'Playfair Display', serif;
+  color:#556b55;
+  margin-bottom:8px;
+  font-size:20px;
+}
+.story-step p {
+  font-size:14px;
+  color:#333;
+  margin-bottom:10px;
+}
+.story-step img {
+  width:100%;
+  max-width:300px;
+  border-radius:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  margin:auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.story-step img:hover {
+  transform: scale(1.05);
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+.story-step.visible {opacity:1; transform: translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Maryna & Daniil</h1>
+  <div class="date">19 czerwca 2026 — Dworek przy lesie</div>
+  <nav>
+    <button id="btn-uk" class="active" onclick="setLang('uk')">Українська</button>
+    <button id="btn-pl" onclick="setLang('pl')">Polski</button>
+  </nav>
+</header>
+
+<div class="container">
+
+<!-- =================== Українська =================== -->
+<div id="lang-uk" class="lang active">
+
+  <div class="section">
+    <h2>Запрошуємо вас на наше весілля!</h2>
+    <img src="IMG_4565.jpg" alt="Maryna i Daniil" class="hero-img">
+    <p style="text-align:center">Дорогі гості, будемо раді святкувати цей день разом з вами 🤍</p>
+  </div>
+
+  <div style="text-align:center; margin:30px;">
+    <h2>До нашого весілля залишилось:</h2>
+    <p id="countdown-uk" style="font-size:24px; color:#2e3d2f; font-weight:bold;"></p>
+  </div>
+
+  <div style="text-align:center; margin:30px auto; max-width:400px;">
+    <h2>Наша особлива дата ❤️</h2>
+    <table class="calendar">
+      <thead>
+        <tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Нд</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+        <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+        <tr><td>15</td><td>16</td><td>17</td><td>18</td><td class="wedding-day">19</td><td>20</td><td>21</td></tr>
+        <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+        <tr><td>29</td><td>30</td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Місце</h2>
+    <a href="https://www.google.com/maps/place/Dworek+przy+lesie,+Zimnodół+96a,+32-300+Olkusz" target="_blank">Подивитися карту місця</a>
+  </div>
+
+  <audio id="weddingMusic-uk" loop>
+    <source src="Bruno.mp3" type="audio/mpeg">
+    Ваш браузер не підтримує аудіо.
+  </audio>
+
+  <div class="section">
+    <h2>Подарунки</h2>
+    <p>Замість квітів і алкоголю ми будемо дуже раді отримати <b>книжки</b> 📚</p>
+    <p>Щоб не повторюватися, перегляньте список тих, що у нас вже є:</p>
+    <a class="btn" href="https://t.me/+ifTxaNgGaSgzNWM6" target="_blank">Наші книги</a>
+  </div>
+
+  <div class="section">
+    <h2>Дрес-код</h2>
+    <p style="text-align:center; max-width:600px; margin:0 auto;">Ми будемо раді, якщо ви прийдете в цих кольорах, які підкреслять атмосферу нашого весілля:</p>
+    <div style="display:flex; justify-content:center; gap:10px; flex-wrap: wrap; margin: 15px 0;">
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#f5f0e1;"></div>
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#e0d5c1;"></div>
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#8fae8c;"></div>
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#2e3d2f;"></div>
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#8b5e3c;"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="text-align:center;">Будемо раді, якщо ви прийдете!</h2>
+    <div style="display:flex; flex-direction:column; gap:20px; max-width:500px; margin:20px auto;">
+      <div class="question">
+        <p>Чи будете ви присутні на нашому весіллі?</p>
+        <div class="options">
+          <button data-group="q1-uk">Так</button>
+          <button data-group="q1-uk">Ні</button>
+        </div>
+      </div>
+      <div class="question">
+        <p>Що ви принесете замість квітів та алкоголю?</p>
+        <div class="options">
+          <button data-group="q2-uk">Книжки</button>
+          <button data-group="q2-uk">Алкоголь</button>
+          <button data-group="q2-uk">Інше</button>
+        </div>
+      </div>
+      <div class="question">
+        <p>Чи будете дотримуватися дрес-коду?</p>
+        <div class="options">
+          <button data-group="q3-uk">Так</button>
+          <button data-group="q3-uk">Ні</button>
+        </div>
+      </div>
+      <div class="question">
+        <p>Що ви плануєте пити на святі?</p>
+        <div class="options">
+          <button data-group="q4-uk">Вино</button>
+          <button data-group="q4-uk">Шампанське</button>
+          <button data-group="q4-uk">Віскі</button>
+          <button data-group="q4-uk">Коктейлі</button>
+          <button data-group="q4-uk">Безалкогольні напої</button>
+        </div>
+      </div>
+      <div class="question">
+        <p>Якщо хочете, залиште свої побажання або примітки:</p>
+        <textarea id="notes-uk" placeholder="Ваші побажання..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; resize:vertical; min-height:60px;"></textarea>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- =================== Польська =================== -->
+<div id="lang-pl" class="lang">
+
+  <div class="section">
+    <h2>Zaproszenie</h2>
+    <img src="IMG_4565.jpg" alt="Maryna i Daniil" class="hero-img">
+    <p style="text-align:center">Drodzy Goście, będziemy szczęśliwi świętując ten dzień razem z Wami 🤍</p>
+  </div>
+
+  <div style="text-align:center; margin:30px;">
+    <h2>Do naszego wesela pozostało:</h2>
+    <p id="countdown-pl" style="font-size:24px; color:#2e3d2f; font-weight:bold;"></p>
+  </div>
+
+  <div style="text-align:center; margin:30px auto; max-width:400px;">
+    <h2>Nasza szczególna data ❤️</h2>
+    <table class="calendar">
+      <thead>
+        <tr><th>Pn</th><th>Wt</th><th>Śr</th><th>Cz</th><th>Pt</th><th>Sb</th><th>Nd</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+        <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+        <tr><td>15</td><td>16</td><td>17</td><td>18</td><td class="wedding-day">19</td><td>20</td><td>21</td></tr>
+        <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+        <tr><td>29</td><td>30</td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Miejsce</h2>
+    <a href="https://www.google.com/maps/place/Dworek+przy+lesie,+Zimnodół+96a,+32-300+Olkusz" target="_blank">Zobaczcie mapę miejsca</a>
+  </div>
+
+  <div class="section">
+    <h2>Prezenty</h2>
+    <p>Zamiast kwiatów i alkoholu będziemy bardzo szczęśliwi, jeśli podarujecie nam <b>książki</b> 📚</p>
+    <p>Aby się nie powtarzać, sprawdźcie listę książek, które już mamy:</p>
+    <a class="btn" href="https://t.me/+ifTxaNgGaSgzNWM6" target="_blank">Nasze książki</a>
+  </div>
+
+  <div class="section">
+    <h2>Dress code</h2>
+    <p style="text-align:center; max-width:600px; margin:0 auto;">Będzie nam miło, jeśli zaprezentujecie się Państwo w tych kolorach, które podkreślą atmosferę naszego ślubu:</p>
+    <div style="display:flex; justify-content:center; gap:10px; flex-wrap: wrap; margin: 15px 0;">
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#f5f0e1;"></div>
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#e0d5c1;"></div>
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#8fae8c;"></div>
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#2e3d2f;"></div>
+      <div style="width:30px; height:30px; border-radius:50%; background-color:#8b5e3c;"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="text-align:center;">Będziemy szczęśliwi, jeśli przyjdziecie!</h2>
+    <div style="display:flex; flex-direction:column; gap:20px; max-width:500px; margin:20px auto;">
+      <div class="question">
+        <p>Czy będziecie obecni na naszym weselu?</p>
+        <div class="options">
+          <button data-group="q1-pl">Tak</button>
+          <button data-group="q1-pl">Nie</button>
+        </div>
+      </div>
+      <div class="question">
+        <p>Co przyniesiecie zamiast kwiatów i alkoholu?</p>
+        <div class="options">
+          <button data-group="q2-pl">Książki</button>
+          <button data-group="q2-pl">Alkohol</button>
+          <button data-group="q2-pl">Inne</button>
+        </div>
+      </div>
+      <div class="question">
+        <p>Czy będziecie przestrzegać dress code?</p>
+        <div class="options">
+          <button data-group="q3-pl">Tak</button>
+          <button data-group="q3-pl">Nie</button>
+        </div>
+      </div>
+      <div class="question">
+        <p>Co planujecie pić podczas wesela?</p>
+        <div class="options">
+          <button data-group="q4-pl">Wino</button>
+          <button data-group="q4-pl">Szampan</button>
+          <button data-group="q4-pl">Whisky</button>
+          <button data-group="q4-pl">Koktajle</button>
+          <button data-group="q4-pl">Napoje bezalkoholowe</button>
+        </div>
+      </div>
+      <div class="question">
+        <p>Jeśli chcecie, zostawcie swoje życzenia lub uwagi:</p>
+        <textarea id="notes-pl" placeholder="Wasze życzenia..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; resize:vertical; min-height:60px;"></textarea>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- =================== Історія =================== -->
+<div class="section">
+  <h2>Наша історія кохання ❤️</h2>
+
+  <div id="story-uk" class="lang active story-container">
+    <div class="story-step">
+      <h3>❤️ Як ми зустрілися</h3>
+      <p>Він приїхав до мене на виклик, і з того моменту наше життя змінилося назавжди 🩺💛</p>
+      <img src="333.jpg" alt="Перша зустріч">
+    </div>
+    <div class="story-step">
+      <h3>❤️ Перші спільні моменти</h3>
+      <p>Ми багато сміялися, підтримували одне одного, багато подоружували і разом вирішували навіть складні ситуації в житті ❤️</p>
+      <img src="222.jpg" alt="Перше побачення">
+    </div>
+    <div class="story-step">
+      <h3>❤️ Пропозиція</h3>
+      <p>І нарешті настав момент, коли ми вирішили сказати одне одному “так” на все життя 💍</p>
+      <img src="123.jpg" alt="Пропозиція">
+    </div>
+  </div>
+
+  <div id="story-pl" class="lang story-container">
+    <div class="story-step">
+      <h3>❤️ Jak się poznaliśmy</h3>
+      <p>Przyjechał do mnie na wezwanie i od tego momentu nasze życie zmieniło się na zawsze 🩺💛</p>
+      <img src="333.jpg" alt="Pierwsze spotkanie">
+    </div>
+    <div class="story-step">
+      <h3>❤️ Pierwsze wspólne chwile</h3>
+      <p>Dużo się śmialiśmy, wspieraliśmy nawzajem, podróżowali dużo i razem rozwiązywaliśmy nawet trudne sytuacje w życiu❤️</p>
+      <img src="222.jpg" alt="Pierwsza randka">
+    </div>
+    <div class="story-step">
+      <h3>❤️ Oświadczyny</h3>
+      <p>I w końcu nadszedł moment, gdy zdecydowaliśmy powiedzieć sobie “tak” na całe życie 💍</p>
+      <img src="123.jpg" alt="Oświadczyny">
+    </div>
+  </div>
+</div>
+
+<script>
+const buttons = document.querySelectorAll('.question button');
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.getAttribute('data-group');
+    document.querySelectorAll(`button[data-group="${group}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+function setLang(lang){
+  document.querySelectorAll('.lang').forEach(el=>el.classList.remove('active'));
+  document.getElementById('lang-'+lang).classList.add('active');
+  document.getElementById('story-'+lang).classList.add('active');
+  document.getElementById('btn-uk').classList.remove('active');
+  document.getElementById('btn-pl').classList.remove('active');
+  document.getElementById('btn-'+lang).classList.add('active');
+}
+
+// Лічильник
+const weddingDate = new Date("June 19, 2026 15:00:00").getTime();
+const countdownUK = document.getElementById("countdown-uk");
+const countdownPL = document.getElementById("countdown-pl");
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = weddingDate - now;
+
+  const days = Math.floor(distance / (1000*60*60*24));
+  const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+  const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+  const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+  const textUK = distance < 0 ? "Ми одружилися! ❤️" : `${days} днів ${hours} год ${minutes} хв ${seconds} с`;
+  const textPL = distance < 0 ? "Jesteśmy po ślubie! ❤️" : `${days} dni ${hours} godz ${minutes} min ${seconds} s`;
+
+  if(countdownUK) countdownUK.innerHTML = textUK;
+  if(countdownPL) countdownPL.innerHTML = textPL;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Поява кроків історії при скролі
+function showOnScroll() {
+  const steps = document.querySelectorAll('.story-step');
+  const triggerBottom = window.innerHeight*0.85;
+  steps.forEach(step => {
+    const boxTop = step.getBoundingClientRect().top;
+    if(boxTop < triggerBottom){step.classList.add('visible');}
+  });
+}
+window.addEventListener('scroll', showOnScroll);
+window.addEventListener('load', showOnScroll);
+
+// Музика
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.addEventListener('click', () => {
+    const audio = document.getElementById('weddingMusic-uk');
+    if(audio.paused) audio.play().catch(()=>{console.log("Браузер заблокував автоматичне відтворення");});
+  }, { once:true });
+});
+</script>
+
+</body>
+</html>
